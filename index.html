@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Learn the world properly</title>
+    <link rel="icon" href="../favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Learn the world properly<span id="version">v1.0</span></h1>
+
+        <!-- options section ----------------------------------->
+        <div class="options">
+            <div class="selects">
+                <div class="select-container">
+                    <select id="game-option" name="game">
+                        <option value="list">List of the countries</option>
+                        <option value="countries">Enumerate all the countries</option>
+                        <option value="capitals">Find all the capitals</option>
+                        <option value="flags">Recognize all the flags</option>
+                        <option value="population">Estimate population of all countries</option>
+                    </select>
+                </div>
+                
+                <div class="select-container">
+                    <select id="language-option" name="language">
+                        <option value="english">English</option>
+                        <option value="french">French</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="buttons">
+                <span class="button"> <i class="fa-solid fa-house"></i> </span>
+                <span class="button"> <i class="fa-brands fa-github"></i> </span>
+                <span class="button"> <i class="fa-solid fa-share-nodes"></i> </span>
+            </div>
+        </div>
+
+        <!-- list --------------------------------------------->
+        <div id="list" class="game selected">
+            <p class="rules">
+                Lorem ipsum dolor sit amet <span class="green">explicabo</span> adipisicing elit. Quia eius dignissimos, quos at facilis inventore voluptate <span class="orange">ratione</span> tenetur delectus numquam <span class="red">facilis</span> aperiam explicabo iusto totam eligendi corrupti? Totam ab ratione ipsa sapiente?
+            </p>
+        </div>
+        
+        <!-- game countries ----------------------------------->
+        <div id="countries" class="game">
+            <p class="rules">
+                Lorem ipsum dolor sit amet <span class="green">explicabo</span> adipisicing elit. Quia eius dignissimos, quos at facilis inventore voluptate <span class="orange">ratione</span> tenetur delectus numquam <span class="red">facilis</span> aperiam explicabo iusto totam eligendi corrupti? Totam ab ratione ipsa sapiente?
+            </p>
+
+            <div class="form">
+                <input id="countries-input" class="guess" type="text" placeholder="name a country...">
+                <div id="countries-counter" class="form-item result"> 0/197 </div>
+            </div>
+
+            <div id="countries-list" class="answers">
+                <!-- <div class="answer orange">
+                    <div class="img-container"><img src="./flags/iceland.png"></div>
+                    Islande
+                </div> -->
+            </div>
+        </div>
+
+        <!-- game capitals ----------------------------------->
+        <div id="capitals" class="game">
+            <p class="rules">
+                Lorem ipsum dolor sit amet <span class="green">explicabo</span> adipisicing elit. Quia eius dignissimos, quos at facilis inventore voluptate <span class="orange">ratione</span> tenetur delectus numquam <span class="red">facilis</span> aperiam explicabo iusto totam eligendi corrupti? Totam ab ratione ipsa sapiente?
+            </p>
+
+            <div class="form">
+                <div class="form-item clue clue-capital">
+                    <img src="./flags/iceland.png">
+                    Islande
+                </div>
+                <input class="guess" type="text" placeholder="name the capital...">
+                <div class="form-item result"> 0/203 </div>
+            </div>
+
+            <div class="answers">
+                
+            </div>
+        </div>
+
+        <!-- game flags ----------------------------------->
+        <div id="flags" class="game">
+            <p class="rules">
+                Lorem ipsum dolor sit amet <span class="green">explicabo</span> adipisicing elit. Quia eius dignissimos, quos at facilis inventore voluptate <span class="orange">ratione</span> tenetur delectus numquam <span class="red">facilis</span> aperiam explicabo iusto totam eligendi corrupti? Totam ab ratione ipsa sapiente?
+            </p>
+
+            <div class="form">
+                <div class="form-item clue">
+                    <img src="./flags/iceland.png">
+                </div>
+                <input class="guess" type="text" placeholder="name the country...">
+                <div class="form-item result"> 0/197 </div>
+            </div>
+
+            <div class="answers">
+                
+            </div>
+        </div>
+
+        <!-- game population ----------------------------------->
+        <div id="population" class="game">
+            <p class="rules">
+                Lorem ipsum dolor sit amet <span class="green">explicabo</span> adipisicing elit. Quia eius dignissimos, quos at facilis inventore voluptate <span class="orange">ratione</span> tenetur delectus numquam <span class="red">facilis</span> aperiam explicabo iusto totam eligendi corrupti? Totam ab ratione ipsa sapiente?
+            </p>
+
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="fuse.js"></script>
+    <script src="world.js"></script>
+    <script src="app.js"></script>
+    <script src="https://kit.fontawesome.com/01cb640fdf.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

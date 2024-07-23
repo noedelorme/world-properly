@@ -1,0 +1,242 @@
+/*** variables & presets *****************/
+:root{
+    --black: #555;
+    --dark-grey: #999999;
+    --grey: #e4e0e0;
+    --bg: #f4f0f0;
+    --bg-green: #edffed;
+    --bg-orange: #fff0d5;
+    --bg-red: #ffdcdc;
+}
+*, *::after, *::before{ margin: 0; padding: 0; box-sizing: border-box; }
+.clearfix{ overflow: auto; }
+.clearfix::after{ content: ""; clear: both; display: table; }
+
+/*** settings ****************************/
+html{
+    background: var(--bg);
+}
+body{
+    font-family: monospace;
+    color: var(--black);
+    line-height: 1.6;
+    font-size: 1.3em;
+    padding-top: 20px;
+}
+.container{
+    width: 700px;
+    margin: auto;
+}
+h1{
+    margin-bottom: 20px;
+}
+#version{
+    font-size: .4em;
+    font-family: sans-serif;
+    padding-left: 5px;
+}
+.green, .orange, .red{
+    text-align: center;
+    border-radius: 5px;
+    padding: 2px 5px;
+    border: 1px solid var(--grey);
+    vertical-align: middle;
+    overflow: hidden;
+}
+.green{
+    background: var(--bg-green);
+}
+.orange{
+    background: var(--bg-orange);
+}
+.red{
+    background: var(--bg-red);
+}
+
+
+
+/*** options & form ***********************/
+select, input, .button, .form-item, .continent-name, .country{
+    display: inline-block;
+    margin:0;
+    padding: 0 15px;
+    height: 50px;
+    line-height: 50px;
+    line-height: 50px;
+    font-size: 1em;
+    vertical-align: middle;
+    border-radius: 10px;
+    font-family: monospace;
+    color: var(--black);
+    border: 1px solid var(--grey);
+    background: white;
+    overflow: hidden;
+}
+select:focus, input:focus{
+    outline: none;
+}
+.button{
+    cursor: pointer;
+    width: 50px;
+    text-align: center;
+    font-size: .8em;
+}
+
+.options{
+    margin-bottom: 20px;
+}
+.selects{
+    margin: auto;
+    display: flex;
+    gap: 10px;
+}
+.selects .select-container{
+    padding-right: 10px;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid var(--grey);
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+.selects .select-container:first-of-type{
+    flex-grow: 1;
+}
+.selects .select-container:last-of-type{
+    min-width: 30%;
+}
+.selects select{
+    border: none;
+    width: 100%;
+}
+
+
+/*** games ****************************/
+.game{
+    margin-bottom: 50px;
+    display: none;
+}
+.game.selected{
+    display: block;
+}
+.rules{
+    margin-bottom: 20px;
+    text-align: justify;
+}
+.form{
+    margin: 10px 0;
+    display: flex;
+    gap: 10px;
+}
+.form .clue{
+    font-weight: bold;
+    padding: 0;
+}
+.form .clue img{
+    height: 100%;
+    float: left;
+}
+.form .clue-capital{
+    padding-right: 10px;
+}
+.form .clue-capital img{
+    margin-right: 10px;
+}
+.form .guess{
+    flex-grow: 1;
+}
+
+.answers{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-between;
+    gap: 7px;
+}
+.answer{
+    text-overflow: ellipsis;
+    white-space:nowrap;
+}
+.answer .img-container{
+    overflow: hidden;
+    border-radius: 3px;
+    height: 19px;
+    float: left;
+    margin: 4px;
+    margin-left: 0;
+}
+.answer .img-container img{
+    height: 100%;
+}
+
+
+/*** list ****************************/
+.continent {
+    margin-bottom: 50px;
+}
+.continent .continent-name {
+    display: block;
+    color: #fff;
+    background: var(--black);
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.continent-name .continent-population{
+    float: right;
+}
+.country {
+    display: block;
+    margin-bottom: 10px;
+    padding-left: 0;
+    text-overflow: ellipsis;
+    white-space:nowrap;
+}
+.country.selected{
+    background: var(--bg);
+}
+.country .country-flag {
+    float: left;
+    height: 50px;
+    margin-right: 10px;
+}
+.country .country-flag img {
+    display: block;
+    height: 100%;
+}
+.country .country-info {
+    display: inline-block;
+    line-height: 1.2em;
+    padding-top: 5px;
+}
+.country-name{
+    display: block;
+    font-weight: bold;
+}
+.country-capital {
+    display: block;
+    color: var(--dark-grey);
+}
+.country-population{
+    float: right;
+    font-weight: bold;
+    height: 50px;
+}
+
+
+
+
+/*** media queries ****************************/
+@media screen and (max-width: 720px) {
+    .container{
+        width: 95%;
+    }
+    h1{
+        font-size: 1em;
+        text-align: center;
+    }
+    .selects{
+        display: block;
+    }
+    .select-container{
+        display: block;
+    }
+}
