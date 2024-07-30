@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Learn the world properly</title>
-    <link rel="icon" href="../favicon.png">
+    <link rel="icon" href="favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link rel="stylesheet" href="style.css">
@@ -13,55 +13,49 @@
 <body>
 
     <div class="container">
-        <h1>Learn the world properly<span id="version">v1.0</span></h1>
+        <h1>Apprendre les pays du monde<span id="version">v1.0</span></h1>
 
         <!-- options section ----------------------------------->
         <div class="options">
-            <div class="selects">
-                <div class="select-container">
-                    <select id="game-option" name="game">
-                        <option value="list">List of the countries</option>
-                        <option value="countries">Enumerate all the countries</option>
-                        <option value="capitals">Find all the capitals</option>
-                        <option value="flags">Recognize all the flags</option>
-                        <option value="population">Estimate population of all countries</option>
-                    </select>
-                </div>
-                
-                <div class="select-container">
-                    <select id="language-option" name="language">
-                        <option value="english">English</option>
-                        <option value="french">French</option>
-                    </select>
-                </div>
+            <div class="select-container">
+                <select id="game-option" name="game">
+                    <option value="list">Liste des pays du monde</option>
+                    <option value="countries">Enumérer les pays du monde</option>
+                    <option value="capitals">Trouver les capitales du monde</option>
+                    <option value="flags">Reconnaître les drapeaux du monde</option>
+                    <option value="population">Éstimer la population des pays du monde</option>
+                </select>
             </div>
-            
-            <div class="buttons">
-                <span class="button"> <i class="fa-solid fa-house"></i> </span>
-                <span class="button"> <i class="fa-brands fa-github"></i> </span>
-                <span class="button"> <i class="fa-solid fa-share-nodes"></i> </span>
-            </div>
+
+            <span class="button"> <i class="fa-solid fa-house"></i> </span>
+            <span class="button"> <i class="fa-brands fa-github"></i> </span>
+            <span class="button"> <i class="fa-solid fa-share-nodes"></i> </span>
         </div>
 
         <!-- list --------------------------------------------->
-        <div id="list" class="game selected">
+        <div id="list" class="game">
             <p class="rules">
                 Lorem ipsum dolor sit amet <span class="green">explicabo</span> adipisicing elit. Quia eius dignissimos, quos at facilis inventore voluptate <span class="orange">ratione</span> tenetur delectus numquam <span class="red">facilis</span> aperiam explicabo iusto totam eligendi corrupti? Totam ab ratione ipsa sapiente?
             </p>
         </div>
         
         <!-- game countries ----------------------------------->
-        <div id="countries" class="game">
+        <div id="countries" class="game selected">
             <p class="rules">
                 Lorem ipsum dolor sit amet <span class="green">explicabo</span> adipisicing elit. Quia eius dignissimos, quos at facilis inventore voluptate <span class="orange">ratione</span> tenetur delectus numquam <span class="red">facilis</span> aperiam explicabo iusto totam eligendi corrupti? Totam ab ratione ipsa sapiente?
             </p>
 
-            <div class="form">
-                <input id="countries-input" class="guess" type="text" placeholder="name a country...">
+            <div class="pre-form">
+                <span id="countries-hint" class="button button-orange"> <i class="fa-solid fa-puzzle-piece"></i> </span>
                 <div id="countries-counter" class="form-item result"> 0/197 </div>
             </div>
 
-            <div id="countries-list" class="answers">
+            <div class="form">
+                <input id="countries-input" class="guess" type="text" placeholder="Nommer un autre pays.">
+                <span id="countries-enter" class="button button-enter"> <i class="fa-solid fa-right-to-bracket"></i> </span>
+            </div>
+
+            <div id="countries-answers" class="answers">
                 <!-- <div class="answer orange">
                     <div class="img-container"><img src="./flags/iceland.png"></div>
                     Islande
@@ -75,16 +69,22 @@
                 Lorem ipsum dolor sit amet <span class="green">explicabo</span> adipisicing elit. Quia eius dignissimos, quos at facilis inventore voluptate <span class="orange">ratione</span> tenetur delectus numquam <span class="red">facilis</span> aperiam explicabo iusto totam eligendi corrupti? Totam ab ratione ipsa sapiente?
             </p>
 
-            <div class="form">
-                <div class="form-item clue clue-capital">
+            <div class="pre-form">
+                <div id="capitals-clue" class="form-item clue clue-capital">
                     <img src="./flags/iceland.png">
                     Islande
                 </div>
-                <input class="guess" type="text" placeholder="name the capital...">
-                <div class="form-item result"> 0/203 </div>
+                <span class="button button-orange"> <i class="fa-solid fa-puzzle-piece"></i> </span>
+                <span class="button button-red"> <i class="fa-solid fa-xmark"></i> </span>
+                <div id="capitals-counter" class="form-item result"> 0/197 </div>
             </div>
 
-            <div class="answers">
+            <div class="form">
+                <input id="capitals-input" class="guess" type="text" placeholder="Quelle est la capitale ?">
+                <span class="button button-enter"> <i class="fa-solid fa-right-to-bracket"></i> </span>
+            </div>
+
+            <div id="capitals-answers" class="answers">
                 
             </div>
         </div>
@@ -95,12 +95,18 @@
                 Lorem ipsum dolor sit amet <span class="green">explicabo</span> adipisicing elit. Quia eius dignissimos, quos at facilis inventore voluptate <span class="orange">ratione</span> tenetur delectus numquam <span class="red">facilis</span> aperiam explicabo iusto totam eligendi corrupti? Totam ab ratione ipsa sapiente?
             </p>
 
-            <div class="form">
+            <div class="pre-form">
                 <div class="form-item clue">
                     <img src="./flags/iceland.png">
                 </div>
-                <input class="guess" type="text" placeholder="name the country...">
-                <div class="form-item result"> 0/197 </div>
+                <span class="button button-orange"> <i class="fa-solid fa-puzzle-piece"></i> </span>
+                <span class="button button-red"> <i class="fa-solid fa-xmark"></i> </span>
+                <div id="flags-counter" class="form-item result"> 0/197 </div>
+            </div>
+
+            <div class="form">
+                <input id="flags-input" class="guess" type="text" placeholder="Quelle est le pays ?">
+                <span class="button button-enter"> <i class="fa-solid fa-right-to-bracket"></i> </span>
             </div>
 
             <div class="answers">
@@ -114,6 +120,23 @@
                 Lorem ipsum dolor sit amet <span class="green">explicabo</span> adipisicing elit. Quia eius dignissimos, quos at facilis inventore voluptate <span class="orange">ratione</span> tenetur delectus numquam <span class="red">facilis</span> aperiam explicabo iusto totam eligendi corrupti? Totam ab ratione ipsa sapiente?
             </p>
 
+            <div class="pre-form">
+                <div id="population-clue" class="form-item clue clue-capital">
+                    <img src="./flags/iceland.png">
+                    Islande
+                </div>
+                <span class="button button-red"> <i class="fa-solid fa-xmark"></i> </span>
+                <div id="population-counter" class="form-item result"> 0/197 </div>
+            </div>
+
+            <div class="form">
+                <input id="population-input" class="slider" type="range" min="0" max="100" value="0" class="slider" id="myRange">
+                <div id="population-value" class="guess"> 0 M </div>
+                <span class="button button-enter"> <i class="fa-solid fa-right-to-bracket"></i> </span>
+            </div>
+            
+            <div class="answers">
+                
             </div>
         </div>
     </div>

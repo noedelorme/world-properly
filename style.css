@@ -1,4 +1,7 @@
-/*** variables & presets *****************/
+/***************************************************
+ *   variables & presets                           *
+ ***************************************************/
+
 :root{
     --black: #555;
     --dark-grey: #999999;
@@ -6,13 +9,16 @@
     --bg: #f4f0f0;
     --bg-green: #edffed;
     --bg-orange: #fff0d5;
-    --bg-red: #ffdcdc;
+    --bg-red: #ffe7e7;
 }
 *, *::after, *::before{ margin: 0; padding: 0; box-sizing: border-box; }
 .clearfix{ overflow: auto; }
 .clearfix::after{ content: ""; clear: both; display: table; }
 
-/*** settings ****************************/
+
+/***************************************************
+ *   settings                                      *
+ ***************************************************/
 html{
     background: var(--bg);
 }
@@ -55,8 +61,10 @@ h1{
 
 
 
-/*** options & form ***********************/
-select, input, .button, .form-item, .continent-name, .country{
+/***************************************************
+ *   options & form                                *
+ ***************************************************/
+select, input, .guess, .button, .form-item, .continent-name, .country{
     display: inline-block;
     margin:0;
     padding: 0 15px;
@@ -79,38 +87,57 @@ select:focus, input:focus{
     cursor: pointer;
     width: 50px;
     text-align: center;
-    font-size: .8em;
+    font-size: 18px;
+}
+.button.button-black{
+    background: var(--black);
+    color: white;
+}
+.button.button-orange:hover{
+    background: var(--bg-orange);
+}
+.button.button-red:hover{
+    background: var(--bg-red);
+}
+.button.button-enter{
+    min-width: 100px;
 }
 
 .options{
     margin-bottom: 20px;
+    display: flex;
+    gap:10px;
 }
-.selects{
+/* .selects{
     margin: auto;
     display: flex;
     gap: 10px;
-}
-.selects .select-container{
+} */
+.select-container{
     padding-right: 10px;
     background: white;
     border-radius: 10px;
     border: 1px solid var(--grey);
     overflow: hidden;
     margin-bottom: 10px;
+    flex-grow: 1;
 }
-.selects .select-container:first-of-type{
+/* .selects .select-container:first-of-type{
     flex-grow: 1;
 }
 .selects .select-container:last-of-type{
     min-width: 30%;
-}
-.selects select{
+} */
+select{
     border: none;
     width: 100%;
 }
 
 
-/*** games ****************************/
+
+/***************************************************
+ *   games                                         *
+ ***************************************************/
 .game{
     margin-bottom: 50px;
     display: none;
@@ -119,27 +146,35 @@ select:focus, input:focus{
     display: block;
 }
 .rules{
-    margin-bottom: 20px;
+    margin-bottom: 60px;
     text-align: justify;
 }
-.form{
+
+.pre-form, .form{
     margin: 10px 0;
     display: flex;
     gap: 10px;
 }
-.form .clue{
+.pre-form .clue{
     font-weight: bold;
     padding: 0;
 }
-.form .clue img{
+.pre-form .clue img{
     height: 100%;
     float: left;
 }
-.form .clue-capital{
+.pre-form .clue-capital{
     padding-right: 10px;
 }
-.form .clue-capital img{
+.pre-form .clue-capital img{
     margin-right: 10px;
+}
+.pre-form .result{
+    /* margin-left: auto; */
+    background: var(--black);
+    color: white;
+    flex-grow: 1;
+    text-align: center;
 }
 .form .guess{
     flex-grow: 1;
@@ -148,7 +183,7 @@ select:focus, input:focus{
 .answers{
     display: flex;
     flex-wrap: wrap;
-    justify-content:space-between;
+    justify-content: space-evenly;
     gap: 7px;
 }
 .answer{
@@ -168,7 +203,10 @@ select:focus, input:focus{
 }
 
 
-/*** list ****************************/
+
+/***************************************************
+ *   list                                          *
+ ***************************************************/
 .continent {
     margin-bottom: 50px;
 }
@@ -222,9 +260,51 @@ select:focus, input:focus{
 }
 
 
+/***************************************************
+ *   population                                    *
+ ***************************************************/
+.slider{
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 10px;
+    /* width: 100%; */
+    flex-grow: 1;
+    /* width: 100%;
+    height: 25px;
+    background: white;
+    padding: 2px; */
+}
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    background: var(--black);
+    cursor: pointer;
+}
+  
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #04AA6D;
+    cursor: pointer;
+}
+#population .form{
+    justify-content:space-between;
+}
+#population-value{
+    flex-grow: 0;
+    font-weight: bold;
+}
 
 
-/*** media queries ****************************/
+
+
+
+/***************************************************
+ *   media queries                                 *
+ ***************************************************/
 @media screen and (max-width: 720px) {
     .container{
         width: 95%;
