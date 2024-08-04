@@ -33,16 +33,16 @@
         </div>
 
         <!-- list --------------------------------------------->
-        <div id="list" class="game">
+        <div id="list" class="game selected">
             <p class="rules">
-                Lorem ipsum dolor sit amet <span class="green">explicabo</span> adipisicing elit. Quia eius dignissimos, quos at facilis inventore voluptate <span class="orange">ratione</span> tenetur delectus numquam <span class="red">facilis</span> aperiam explicabo iusto totam eligendi corrupti? Totam ab ratione ipsa sapiente?
+                La liste comporte les 197 pays du monde reconnus par l'ONU. Chaque pays est accompagné de son drapeau, de sa (ou ses) capitale(s) ainsi que de son nombre d'habitants. L'ordre des pays suit des lignes sur la carte du monde pour facilité l'apprentissage. Vous pouvez vous exercer sur les autres pages de ce site.
             </p>
         </div>
         
         <!-- game countries ----------------------------------->
-        <div id="countries" class="game selected">
+        <div id="countries" class="game">
             <p class="rules">
-                Lorem ipsum dolor sit amet <span class="green">explicabo</span> adipisicing elit. Quia eius dignissimos, quos at facilis inventore voluptate <span class="orange">ratione</span> tenetur delectus numquam <span class="red">facilis</span> aperiam explicabo iusto totam eligendi corrupti? Totam ab ratione ipsa sapiente?
+                Retrouver les 197 pays du monde. Les pays s'affichent en <span class="green">vert</span> si vous n'utilisez pas d'incice, en <span class="orange">orange</span> si vous en utilisez au plus trois, et en <span class="red">rouge</span> sinon. Dans ce dernier cas, le compteur n'est pas incrémenté.
             </p>
 
             <div class="pre-form">
@@ -51,7 +51,7 @@
             </div>
 
             <div class="form">
-                <input id="countries-input" class="guess" type="text" placeholder="Nommer un autre pays.">
+                <input id="countries-input" class="guess" type="text" placeholder="Nommer un autre pays...">
                 <span id="countries-enter" class="button button-enter"> <i class="fa-solid fa-right-to-bracket"></i> </span>
             </div>
 
@@ -66,7 +66,7 @@
         <!-- game capitals ----------------------------------->
         <div id="capitals" class="game">
             <p class="rules">
-                Lorem ipsum dolor sit amet <span class="green">explicabo</span> adipisicing elit. Quia eius dignissimos, quos at facilis inventore voluptate <span class="orange">ratione</span> tenetur delectus numquam <span class="red">facilis</span> aperiam explicabo iusto totam eligendi corrupti? Totam ab ratione ipsa sapiente?
+                Retrouver les capitales des 197 pays du monde. Les capitales s'affichent en <span class="green">vert</span> si vous n'utilisez pas d'incice, en <span class="orange">orange</span> si vous en utilisez au plus trois, et en <span class="red">rouge</span> sinon. Dans ce dernier cas, le compteur n'est pas incrémenté. Pour les pays ayant plusieurs capitales, l'une d'entre elles suffit.
             </p>
 
             <div class="pre-form">
@@ -74,14 +74,14 @@
                     <img src="./flags/iceland.png">
                     Islande
                 </div>
-                <span class="button button-orange"> <i class="fa-solid fa-puzzle-piece"></i> </span>
-                <span class="button button-red"> <i class="fa-solid fa-xmark"></i> </span>
+                <span id="capitals-hint" class="button button-orange"> <i class="fa-solid fa-puzzle-piece"></i> </span>
+                <span id="capitals-abandon" class="button button-red"> <i class="fa-solid fa-xmark"></i> </span>
                 <div id="capitals-counter" class="form-item result"> 0/197 </div>
             </div>
 
             <div class="form">
                 <input id="capitals-input" class="guess" type="text" placeholder="Quelle est la capitale ?">
-                <span class="button button-enter"> <i class="fa-solid fa-right-to-bracket"></i> </span>
+                <span id="capitals-enter" class="button button-enter"> <i class="fa-solid fa-right-to-bracket"></i> </span>
             </div>
 
             <div id="capitals-answers" class="answers">
@@ -92,24 +92,24 @@
         <!-- game flags ----------------------------------->
         <div id="flags" class="game">
             <p class="rules">
-                Lorem ipsum dolor sit amet <span class="green">explicabo</span> adipisicing elit. Quia eius dignissimos, quos at facilis inventore voluptate <span class="orange">ratione</span> tenetur delectus numquam <span class="red">facilis</span> aperiam explicabo iusto totam eligendi corrupti? Totam ab ratione ipsa sapiente?
+                Reconnaîssez les drapeaux des 197 pays du monde. Les pays s'affichent en <span class="green">vert</span> si vous n'utilisez pas d'incice, en <span class="orange">orange</span> si vous en utilisez au plus trois, et en <span class="red">rouge</span> sinon. Dans ce dernier cas, le compteur n'est pas incrémenté.
             </p>
 
             <div class="pre-form">
-                <div class="form-item clue">
+                <div id="flags-clue" class="form-item clue">
                     <img src="./flags/iceland.png">
                 </div>
-                <span class="button button-orange"> <i class="fa-solid fa-puzzle-piece"></i> </span>
-                <span class="button button-red"> <i class="fa-solid fa-xmark"></i> </span>
+                <span id="flags-hint" class="button button-orange"> <i class="fa-solid fa-puzzle-piece"></i> </span>
+                <span id="flags-abandon" class="button button-red"> <i class="fa-solid fa-xmark"></i> </span>
                 <div id="flags-counter" class="form-item result"> 0/197 </div>
             </div>
 
             <div class="form">
                 <input id="flags-input" class="guess" type="text" placeholder="Quelle est le pays ?">
-                <span class="button button-enter"> <i class="fa-solid fa-right-to-bracket"></i> </span>
+                <span id="flags-enter" class="button button-enter"> <i class="fa-solid fa-right-to-bracket"></i> </span>
             </div>
 
-            <div class="answers">
+            <div id="flags-answers" class="answers">
                 
             </div>
         </div>
@@ -117,7 +117,7 @@
         <!-- game population ----------------------------------->
         <div id="population" class="game">
             <p class="rules">
-                Lorem ipsum dolor sit amet <span class="green">explicabo</span> adipisicing elit. Quia eius dignissimos, quos at facilis inventore voluptate <span class="orange">ratione</span> tenetur delectus numquam <span class="red">facilis</span> aperiam explicabo iusto totam eligendi corrupti? Totam ab ratione ipsa sapiente?
+                Estimez le nombre d'habitants des 197 pays du monde. Les pays s'affichent en <span class="green">vert</span> si votre estimation est juste à ±20%, en <span class="orange">orange</span> si votre estimation est juste à ±35%, et en <span class="red">rouge</span> sinon. Dans ce dernier cas, le compteur n'est pas incrémenté.
             </p>
 
             <div class="pre-form">
@@ -125,17 +125,16 @@
                     <img src="./flags/iceland.png">
                     Islande
                 </div>
-                <span class="button button-red"> <i class="fa-solid fa-xmark"></i> </span>
                 <div id="population-counter" class="form-item result"> 0/197 </div>
             </div>
 
             <div class="form">
-                <input id="population-input" class="slider" type="range" min="0" max="100" value="0" class="slider" id="myRange">
+                <input id="population-input" class="slider" type="range" min="0" max="100" step=".1" value="0" class="slider" id="myRange">
                 <div id="population-value" class="guess"> 0 M </div>
-                <span class="button button-enter"> <i class="fa-solid fa-right-to-bracket"></i> </span>
+                <span id="population-enter" class="button button-enter"> <i class="fa-solid fa-right-to-bracket"></i> </span>
             </div>
             
-            <div class="answers">
+            <div id="population-answers" class="answers">
                 
             </div>
         </div>

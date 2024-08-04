@@ -1,11 +1,13 @@
 function random_permutation(n) {
-    let permutation = Array.from({ length: n-1 }, (_, i) => i + 1);
+    let permutation = Array.from({ length: n }, (_, i) => i);
     permutation.sort(() => Math.random() - 0.5);
 
     return permutation;
 }
 
 function levenshtein_distance(s, t){
+    s = s.toLowerCase();
+    t = t.toLowerCase();
     if (!s.length) return t.length;
     if (!t.length) return s.length;
     const arr = [];
@@ -51,7 +53,7 @@ function new_country_element(country){
     country_info.classList.add("country-info");
     let country_name = document.createElement("span");
     country_name.classList.add("country-name");
-    country_name.innerHTML = country.name;
+    country_name.innerHTML = country.name[0];
     let country_capital = document.createElement("span");
     country_capital.classList.add("country-capital");
     country_capital.innerHTML = country.capital;
@@ -74,7 +76,7 @@ function new_country_element(country){
     return country_element;
 }
 
-function new_answer_element(country, color="green", capital=false){
+function new_answer_element(country, color="green", capital=-1, population=false){
     let answer = document.createElement("div");
     answer.classList.add("answer", color);
     let img_container = document.createElement("div");
@@ -82,10 +84,12 @@ function new_answer_element(country, color="green", capital=false){
     let img = document.createElement("img");
     img.src = country.flag;
     let text = document.createElement("span");
-    if(!capital){
-        text.innerHTML = country.name;
-    }else if(capital){
-        text.innerHTML = country.capital;
+    if (capital == -1) {
+        text.innerHTML = country.name[0];
+    } else if ( !population ) {
+        text.innerHTML = country.capital[capital];
+    } else {
+        text.innerHTML = country.name[0] + "(" + country.population + " M)";
     }
     img_container.appendChild(img);
     answer.append(img_container);
@@ -106,26 +110,6 @@ function populate_answers(answers, n){
 let countries = [];
 for(let i=0; i<world.continents.length; i++){
     for(let j=0; j<world.continents[i].countries.length; j++){
-        // let item = world.continents[i].countries[j];
-        // item.game = {
-        //     "countries": {
-        //         "finds": 0,
-        //         "element": null
-        //     },
-        //     "capitals": {
-        //         "finds": 0,
-        //         "element": null
-        //     },
-        //     "flags": {
-        //         "finds": 0,
-        //         "element": null
-        //     },
-        //     "population": {
-        //         "finds": 0,
-        //         "element": null
-        //     }
-        // }
-        // countries.push(item)
         let country = world.continents[i].countries[j];
         country.game = {};
         countries.push(country)
@@ -133,7 +117,7 @@ for(let i=0; i<world.continents.length; i++){
 }
 
 
-( () => { /*** List of the countries  *******************************/
+( () => { /*** List of the countries  ****************************************************************/
 
 let list = document.getElementById("list");
 for (let i = 0; i < world.continents.length; i++) {
@@ -151,7 +135,7 @@ for (let i = 0; i < world.continents.length; i++) {
 } )();
 
 
-( () => { /*** First game: Countries  *******************************/
+( () => { /*** First game: Countries  ****************************************************************/
 
 let input = document.getElementById("countries-input");
 let enter = document.getElementById("countries-enter");
@@ -170,10 +154,9 @@ for (let i = 0; i < countries.length; i++) {
     };
 }
 
-populate_answers(answers, 30);
-
 const fuse = new Fuse(countries, {
     includeScore: true,
+    includeMatches: true,
     threshold: 0.2,
     keys: ['name']
 });
@@ -187,14 +170,18 @@ function play_event(value){
     let results = fuse.search(value);
     if(results.length>0){
         let better = results[0].item;
-        if(is_long_enough(value, better.name)){
-            if(!better.game.countries.found && true){ // true = si on a pas utilisé d'indices
+        let match = results[0].matches[0].value;
+        if(is_long_enough(value, match)){
+            if(!better.game.countries.found){
                 better.game.countries.found = true;
-                let color = hint_cnt==0 ? "green" : "orange";
+                let color;
+                if (hint_cnt == 0) { color = "green"; }
+                else if (hint_cnt <= 3) { color = "orange"; }
+                else { color = "red"; }
                 better.game.countries.element = new_answer_element(better, color=color);
                 answers.insertBefore(better.game.countries.element, answers.firstChild);
                 input.value = "";
-                cnt++;
+                if (hint_cnt <= 3) cnt++;
                 counter.innerHTML = cnt + "/197";
                 hint_cnt = 0;
                 current_hint = null;
@@ -213,7 +200,7 @@ function hint_event(){
         for (let i = 0; i < countries.length; i++) {
             let country = countries[perm[i]];
             if (!country.game.countries.found) {
-                current_hint = country.name;
+                current_hint = country.name[0];
                 input.value = current_hint[0];
                 hint_cnt++;
                 break;
@@ -241,12 +228,305 @@ hint.addEventListener("click", function(e){
 
 
 
+( () => { /*** Second game: Capitals  ****************************************************************/
+
+let input = document.getElementById("capitals-input");
+let enter = document.getElementById("capitals-enter");
+let hint = document.getElementById("capitals-hint");
+let abandon = document.getElementById("capitals-abandon");
+let answers = document.getElementById("capitals-answers");
+let counter = document.getElementById("capitals-counter");
+let clue = document.getElementById("capitals-clue");
+let cnt = 0;
+let current_clue;
+let hint_cnt = 0;
+let perm = random_permutation(countries.length);
+
+for (let i = 0; i < countries.length; i++) {
+    countries[i].game.capitals = {
+        "found": false,
+        "element": null
+    };
+}
+
+function fill_clue(){
+    current_clue = null;
+    for (let i = 0; i < countries.length; i++) {
+        let country = countries[perm[i]];
+        if (!country.game.capitals.found) {
+            current_clue = country;
+            break;
+        }
+    }
+    if (current_clue != null) {
+        clue.innerHTML = "<img src=\"" + current_clue.flag + "\"> " + current_clue.name[0];
+    }
+}
+
+function play_event (value) {
+    for (let i = 0; i < current_clue.capital.length; i++) {
+        let capital = current_clue.capital[i];
+        if (levenshtein_distance(capital, value) <=3) {
+            current_clue.game.capitals.found = true;
+            let color;
+            if (hint_cnt == 0) { color = "green"; }
+            else if (hint_cnt <= 3) { color = "orange"; }
+            else { color = "red"; }
+            current_clue.game.capitals.element = new_answer_element(current_clue, color=color, capital=i);
+            answers.insertBefore(current_clue.game.capitals.element, answers.firstChild);
+            input.value = "";
+            if (hint_cnt <= 3) cnt++;
+            counter.innerHTML = cnt + "/197";
+            fill_clue();
+            hint_cnt = 0;
+
+            break;
+        }
+    }
+    
+}
+
+function hint_event () {
+    let hint = current_clue.capital[0];
+    input.value = hint.substring(0, hint_cnt+1);
+    hint_cnt++;
+}
+
+function abandon_event () {
+    current_clue.game.capitals.found = true;
+    current_clue.game.capitals.element = new_answer_element(current_clue, color="red", capital=0);
+    answers.insertBefore(current_clue.game.capitals.element, answers.firstChild);
+    input.value = "";
+    fill_clue();
+    hint_cnt = 0;
+}
+
+fill_clue();
+
+input.addEventListener("keydown", function(e){
+    if(e.key === 'Enter'){
+        if (current_clue != null) {
+            play_event(this.value);
+        }
+    }
+});
+
+enter.addEventListener("click", function(e){
+    if (current_clue != null) {
+        play_event(input.value);
+    }
+});
+
+hint.addEventListener("click", function(e){
+    if (current_clue != null) {
+        hint_event();
+    }
+});
+
+abandon.addEventListener("click", function(e){
+    if (current_clue != null) {
+        abandon_event();
+    }
+});
+
+} )();
 
 
 
-/*************************************
- *   Game options                    *
- *************************************/
+
+
+
+
+
+
+
+( () => { /*** Thrid game: Flags  ****************************************************************/
+
+let input = document.getElementById("flags-input");
+let enter = document.getElementById("flags-enter");
+let hint = document.getElementById("flags-hint");
+let abandon = document.getElementById("flags-abandon");
+let answers = document.getElementById("flags-answers");
+let counter = document.getElementById("flags-counter");
+let clue = document.getElementById("flags-clue");
+let cnt = 0;
+let current_clue;
+let hint_cnt = 0;
+let perm = random_permutation(countries.length);
+
+for (let i = 0; i < countries.length; i++) {
+    countries[i].game.flags = {
+        "found": false,
+        "element": null
+    };
+}
+
+function fill_clue(){
+    current_clue = null;
+    for (let i = 0; i < countries.length; i++) {
+        let country = countries[perm[i]];
+        if (!country.game.flags.found) {
+            current_clue = country;
+            break;
+        }
+    }
+    if (current_clue != null) {
+        clue.innerHTML = "<img src=\"" + current_clue.flag + "\">";
+    }
+}
+
+function play_event (value) {
+    for (let i = 0; i < current_clue.name.length; i++) {
+        let name = current_clue.name[i];
+        if (levenshtein_distance(name, value) <=3) {
+            current_clue.game.flags.found = true;
+            let color;
+            if (hint_cnt == 0) { color = "green"; }
+            else if (hint_cnt <= 3) { color = "orange"; }
+            else { color = "red"; }
+            current_clue.game.flags.element = new_answer_element(current_clue, color=color);
+            answers.insertBefore(current_clue.game.flags.element, answers.firstChild);
+            input.value = "";
+            if (hint_cnt <= 3) cnt++;
+            counter.innerHTML = cnt + "/197";
+            fill_clue();
+            hint_cnt = 0;
+
+            break;
+        }
+    }
+    
+}
+
+function hint_event () {
+    let hint = current_clue.name[0];
+    input.value = hint.substring(0, hint_cnt+1);
+    hint_cnt++;
+}
+
+function abandon_event () {
+    current_clue.game.flags.found = true;
+    current_clue.game.flags.element = new_answer_element(current_clue, color="red");
+    answers.insertBefore(current_clue.game.flags.element, answers.firstChild);
+    input.value = "";
+    fill_clue();
+    hint_cnt = 0;
+}
+
+fill_clue();
+
+input.addEventListener("keydown", function(e){
+    if(e.key === 'Enter'){
+        if (current_clue != null) {
+            play_event(this.value);
+        }
+    }
+});
+
+enter.addEventListener("click", function(e){
+    if (current_clue != null) {
+        play_event(input.value);
+    }
+});
+
+hint.addEventListener("click", function(e){
+    if (current_clue != null) {
+        hint_event();
+    }
+});
+
+abandon.addEventListener("click", function(e){
+    if (current_clue != null) {
+        abandon_event();
+    }
+});
+
+} )();
+
+
+
+
+
+
+( () => { /*** Fourth game: Population  ****************************************************************/
+
+let input = document.getElementById("population-input");
+let enter = document.getElementById("population-enter");
+let answers = document.getElementById("population-answers");
+let counter = document.getElementById("population-counter");
+let clue = document.getElementById("population-clue");
+let value = document.getElementById("population-value");
+let cnt = 0;
+let current_clue;
+let hint_cnt = 0;
+let perm = random_permutation(countries.length);
+
+for (let i = 0; i < countries.length; i++) {
+    countries[i].game.population = {
+        "found": false,
+        "element": null
+    };
+}
+
+function real_value(value){
+    return 1500*(value/100)**3;
+}
+
+function is_good_guess (clue, guess) {
+    if (0.8*clue <= guess && guess <= 1.2*clue) {
+        return "green";
+    } else if (0.65*clue <= guess && guess <= 1.35*clue) {
+        return "orange";
+    } else {
+        return "red";
+    }
+}
+
+function fill_clue(){
+    current_clue = null;
+    for (let i = 0; i < countries.length; i++) {
+        let country = countries[perm[i]];
+        if (!country.game.population.found) {
+            current_clue = country;
+            break;
+        }
+    }
+    if (current_clue != null) {
+        clue.innerHTML = "<img src=\"" + current_clue.flag + "\"> " + current_clue.name[0];
+    }
+}
+
+function play_event (value) {
+    current_clue.game.population.found = true;
+    let color = is_good_guess(value, current_clue.population);
+        
+    current_clue.game.population.element = new_answer_element(current_clue, color=color, capital=-1, population=true);
+    answers.insertBefore(current_clue.game.population.element, answers.firstChild);
+    if (color != "red") cnt++;
+    counter.innerHTML = cnt + "/197";
+    fill_clue();
+}
+
+fill_clue();
+
+input.addEventListener("input", function(e){
+    let scaled_value = real_value(this.value);
+    scaled_value = scaled_value<1 ? scaled_value.toFixed(2) : scaled_value.toFixed(0);
+    value.innerHTML = scaled_value + " M";
+});
+
+enter.addEventListener("click", function(e){
+    if (current_clue != null) {
+        play_event(real_value(input.value));
+    }
+});
+
+} )();
+
+
+
+( () => { /*** Game options ****************************************************************/
+
 let countries_section = document.getElementById("countries");
 let capitals_section = document.getElementById("capitals");
 let flags_section = document.getElementById("flags");
@@ -274,3 +554,5 @@ option_select.addEventListener("change", function(e){
     }
     
 });
+
+} )();

@@ -10,6 +10,8 @@
     --bg-green: #edffed;
     --bg-orange: #fff0d5;
     --bg-red: #ffe7e7;
+    --margin: 20px;
+    --big-margin: 50px;
 }
 *, *::after, *::before{ margin: 0; padding: 0; box-sizing: border-box; }
 .clearfix{ overflow: auto; }
@@ -27,14 +29,14 @@ body{
     color: var(--black);
     line-height: 1.6;
     font-size: 1.3em;
-    padding-top: 20px;
+    padding-top: var(--margin);
 }
 .container{
     width: 700px;
     margin: auto;
 }
 h1{
-    margin-bottom: 20px;
+    margin-bottom: var(--margin);
 }
 #version{
     font-size: .4em;
@@ -104,7 +106,7 @@ select:focus, input:focus{
 }
 
 .options{
-    margin-bottom: 20px;
+    margin-bottom: var(--margin);
     display: flex;
     gap:10px;
 }
@@ -146,7 +148,7 @@ select{
     display: block;
 }
 .rules{
-    margin-bottom: 60px;
+    margin-bottom: var(--big-margin);
     text-align: justify;
 }
 
@@ -183,7 +185,7 @@ select{
 .answers{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
     gap: 7px;
 }
 .answer{
@@ -296,6 +298,8 @@ select{
 #population-value{
     flex-grow: 0;
     font-weight: bold;
+    min-width: 100px;
+    text-align: center;
 }
 
 
@@ -306,11 +310,18 @@ select{
  *   media queries                                 *
  ***************************************************/
 @media screen and (max-width: 720px) {
+    :root{
+        --margin: 10px;
+        --big-margin: 25px;
+    }
+    body{
+        font-size: 1em;
+    }
     .container{
         width: 95%;
     }
     h1{
-        font-size: 1em;
+        font-size: 1.15em;
         text-align: center;
     }
     .selects{
