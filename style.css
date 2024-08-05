@@ -37,11 +37,12 @@ body{
 }
 h1{
     margin-bottom: var(--margin);
+    text-align: center;
 }
 #version{
     font-size: .4em;
     font-family: sans-serif;
-    padding-left: 5px;
+    margin-left: 5px;
 }
 .green, .orange, .red{
     text-align: center;
@@ -59,6 +60,14 @@ h1{
 }
 .red{
     background: var(--bg-red);
+}
+
+#share{
+    transition: .2s;
+}
+#share.clicked{
+    background: var(--black);
+    color: white;
 }
 
 
@@ -108,34 +117,18 @@ select:focus, input:focus{
 .options{
     margin-bottom: var(--margin);
     display: flex;
+    flex-wrap: wrap;
     gap:10px;
 }
-/* .selects{
-    margin: auto;
-    display: flex;
-    gap: 10px;
-} */
-.select-container{
-    padding-right: 10px;
-    background: white;
-    border-radius: 10px;
-    border: 1px solid var(--grey);
-    overflow: hidden;
-    margin-bottom: 10px;
-    flex-grow: 1;
-}
-/* .selects .select-container:first-of-type{
-    flex-grow: 1;
-}
-.selects .select-container:last-of-type{
-    min-width: 30%;
-} */
 select{
-    border: none;
-    width: 100%;
+    flex-grow: 1;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='grey' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 99%;
+    background-position-y: 12px;
+    text-overflow: ellipsis;
 }
-
-
 
 /***************************************************
  *   games                                         *
@@ -324,10 +317,7 @@ select{
         font-size: 1.15em;
         text-align: center;
     }
-    .selects{
-        display: block;
-    }
-    .select-container{
-        display: block;
+    select{
+        width: 100%;
     }
 }

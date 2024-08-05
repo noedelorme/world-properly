@@ -6,8 +6,8 @@ function random_permutation(n) {
 }
 
 function levenshtein_distance(s, t){
-    s = s.toLowerCase();
-    t = t.toLowerCase();
+    s = s.toLowerCase().replace(/[^a-zA-Z ]/g, "");
+    t = t.toLowerCase().replace(/[^a-zA-Z ]/g, "");
     if (!s.length) return t.length;
     if (!t.length) return s.length;
     const arr = [];
@@ -84,13 +84,9 @@ function new_answer_element(country, color="green", capital=-1, population=false
     let img = document.createElement("img");
     img.src = country.flag;
     let text = document.createElement("span");
-    if (capital == -1) {
-        text.innerHTML = country.name[0];
-    } else if ( !population ) {
-        text.innerHTML = country.capital[capital];
-    } else {
-        text.innerHTML = country.name[0] + "(" + country.population + " M)";
-    }
+    if (capital == -1) text.innerHTML = country.name[0];
+    if (capital != -1) text.innerHTML = country.capital[capital];
+    if (population) text.innerHTML += " (" + country.population + " M)";
     img_container.appendChild(img);
     answer.append(img_container);
     answer.appendChild(text)
@@ -191,22 +187,18 @@ function play_event(value){
 }
 
 function hint_event(){
-    if (hint_cnt>0){ // if we already have an hint
-        if (hint_cnt<current_hint.length){
-            input.value = current_hint.substring(0, hint_cnt+1);
-            hint_cnt++;
-        }
-    }else{ // else we chose another hint
+    if (hint_cnt==0){
         for (let i = 0; i < countries.length; i++) {
             let country = countries[perm[i]];
             if (!country.game.countries.found) {
                 current_hint = country.name[0];
-                input.value = current_hint[0];
-                hint_cnt++;
                 break;
             }
         }
     }
+    input.value = current_hint.substring(0, hint_cnt+1);
+    hint_cnt++;
+    input.focus();
 }
 
 input.addEventListener("keydown", function(e){
@@ -290,6 +282,7 @@ function hint_event () {
     let hint = current_clue.capital[0];
     input.value = hint.substring(0, hint_cnt+1);
     hint_cnt++;
+    input.focus();
 }
 
 function abandon_event () {
@@ -402,6 +395,7 @@ function hint_event () {
     let hint = current_clue.name[0];
     input.value = hint.substring(0, hint_cnt+1);
     hint_cnt++;
+    input.focus();
 }
 
 function abandon_event () {
@@ -553,6 +547,15 @@ option_select.addEventListener("change", function(e){
         population_section.classList.add("selected")
     }
     
+});
+
+let mtn = document.getElementById("share");
+share.addEventListener("click", function(e){
+    this.classList.add("clicked");
+    setTimeout(function() {
+        share.classList.remove("clicked");
+    }, 100);
+    navigator.clipboard.writeText("https://noedelor.me/world");
 });
 
 } )();
