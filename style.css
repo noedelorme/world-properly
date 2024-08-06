@@ -10,8 +10,11 @@
     --bg-green: #edffed;
     --bg-orange: #fff0d5;
     --bg-red: #ffe7e7;
+    --green: #8dfe8d;
+    --orange: #faca70;
+    --red: #ff7474;
     --margin: 20px;
-    --big-margin: 50px;
+    --big-margin: 20px;
 }
 *, *::after, *::before{ margin: 0; padding: 0; box-sizing: border-box; }
 .clearfix{ overflow: auto; }
@@ -27,7 +30,7 @@ html{
 body{
     font-family: monospace;
     color: var(--black);
-    line-height: 1.6;
+    line-height: 1.6em;
     font-size: 1.3em;
     padding-top: var(--margin);
 }
@@ -61,6 +64,15 @@ h1{
 .red{
     background: var(--bg-red);
 }
+.font-green{
+    color: var(--green);
+}
+.font-orange{
+    color: var(--orange);
+}
+.font-red{
+    color: var(--red);
+}
 
 #share{
     transition: .2s;
@@ -75,7 +87,7 @@ h1{
 /***************************************************
  *   options & form                                *
  ***************************************************/
-select, input, .guess, .button, .form-item, .continent-name, .country{
+select, input, .guess, .button, .form-item, .result, .continent-name, .country{
     display: inline-block;
     margin:0;
     padding: 0 15px;
@@ -148,28 +160,30 @@ select{
 .pre-form, .form{
     margin: 10px 0;
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
 }
-.pre-form .clue{
+.clue{
     font-weight: bold;
     padding: 0;
 }
-.pre-form .clue img{
+.clue img{
     height: 100%;
     float: left;
 }
-.pre-form .clue-capital{
+.clue-capital{
     padding-right: 10px;
 }
-.pre-form .clue-capital img{
+.clue-capital img{
     margin-right: 10px;
 }
-.pre-form .result{
-    /* margin-left: auto; */
+.result{
     background: var(--black);
     color: white;
     flex-grow: 1;
     text-align: center;
+    width: 100%;
+    margin-bottom: 10px;
 }
 .form .guess{
     flex-grow: 1;
@@ -305,7 +319,7 @@ select{
 @media screen and (max-width: 720px) {
     :root{
         --margin: 10px;
-        --big-margin: 25px;
+        --big-margin: 10px;
     }
     body{
         font-size: 1em;
@@ -319,5 +333,8 @@ select{
     }
     select{
         width: 100%;
+    }
+    .answer .img-container{
+        height: 14px;
     }
 }

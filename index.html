@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Learn the world properly</title>
+    <title>Apprendre le monde</title>
     <link rel="icon" href="favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -31,27 +31,29 @@
         </div>
 
         <!-- list --------------------------------------------->
-        <div id="list" class="game selected">
+        <div id="list" class="game">
             <p class="rules">
                 La liste comporte les 197 pays du monde reconnus par l'ONU. Chaque pays est accompagné de son drapeau, de sa (ou ses) capitale(s) ainsi que de son nombre d'habitants. L'ordre des pays suit des lignes sur la carte du monde pour facilité l'apprentissage. Vous pouvez vous exercer sur les autres pages de ce site.
             </p>
         </div>
         
         <!-- game countries ----------------------------------->
-        <div id="countries" class="game">
+        <div id="countries" class="game selected">
             <p class="rules">
                 Retrouver les 197 pays du monde. Les pays s'affichent en <span class="green">vert</span> si vous n'utilisez pas d'incice, en <span class="orange">orange</span> si vous en utilisez au plus trois, et en <span class="red">rouge</span> sinon. Dans ce dernier cas, le compteur n'est pas incrémenté.
             </p>
 
             <div class="pre-form">
                 <span id="countries-hint" class="button button-orange"> <i class="fa-solid fa-puzzle-piece"></i> </span>
-                <div id="countries-counter" class="form-item result"> 0/197 </div>
+                <span id="countries-abandon" class="button button-red"> <i class="fa-solid fa-xmark"></i> </span>
             </div>
 
             <div class="form">
                 <input id="countries-input" class="guess" type="text" placeholder="Nommer un autre pays...">
                 <span id="countries-enter" class="button button-enter"> <i class="fa-solid fa-right-to-bracket"></i> </span>
             </div>
+
+            <div id="countries-counter" class="form-item result"> <span class="font-green">0</span>/<span class="font-orange">0</span>/<span class="font-red">0</span> (0/197) </div>
 
             <div id="countries-answers" class="answers">
                 <!-- <div class="answer orange">
@@ -74,13 +76,14 @@
                 </div>
                 <span id="capitals-hint" class="button button-orange"> <i class="fa-solid fa-puzzle-piece"></i> </span>
                 <span id="capitals-abandon" class="button button-red"> <i class="fa-solid fa-xmark"></i> </span>
-                <div id="capitals-counter" class="form-item result"> 0/197 </div>
             </div>
 
             <div class="form">
                 <input id="capitals-input" class="guess" type="text" placeholder="Quelle est la capitale ?">
                 <span id="capitals-enter" class="button button-enter"> <i class="fa-solid fa-right-to-bracket"></i> </span>
             </div>
+
+            <div id="capitals-counter" class="result"> <span class="font-green">0</span>/<span class="font-orange">0</span>/<span class="font-red">0</span> (0/197) </div>
 
             <div id="capitals-answers" class="answers">
                 
@@ -99,13 +102,14 @@
                 </div>
                 <span id="flags-hint" class="button button-orange"> <i class="fa-solid fa-puzzle-piece"></i> </span>
                 <span id="flags-abandon" class="button button-red"> <i class="fa-solid fa-xmark"></i> </span>
-                <div id="flags-counter" class="form-item result"> 0/197 </div>
             </div>
 
             <div class="form">
                 <input id="flags-input" class="guess" type="text" placeholder="Quelle est le pays ?">
                 <span id="flags-enter" class="button button-enter"> <i class="fa-solid fa-right-to-bracket"></i> </span>
             </div>
+
+            <div id="flags-counter" class="form-item result"> <span class="font-green">0</span>/<span class="font-orange">0</span>/<span class="font-red">0</span> (0/197) </div>
 
             <div id="flags-answers" class="answers">
                 
@@ -123,14 +127,15 @@
                     <img src="./flags/iceland.png">
                     Islande
                 </div>
-                <div id="population-counter" class="form-item result"> 0/197 </div>
+                <div id="population-value" class="guess"> 0 M </div>
             </div>
 
             <div class="form">
                 <input id="population-input" class="slider" type="range" min="0" max="100" step=".1" value="0" class="slider" id="myRange">
-                <div id="population-value" class="guess"> 0 M </div>
                 <span id="population-enter" class="button button-enter"> <i class="fa-solid fa-right-to-bracket"></i> </span>
             </div>
+
+            <div id="population-counter" class="form-item result"> <span class="font-green">0</span>/<span class="font-orange">0</span>/<span class="font-red">0</span> (0/197) </div>
             
             <div id="population-answers" class="answers">
                 
@@ -140,7 +145,7 @@
     
 
     <script src="fuse.js"></script>
-    <script src="world.js"></script>
+    <script src="smallworld.js"></script>
     <script src="app.js"></script>
     <script src="https://kit.fontawesome.com/01cb640fdf.js" crossorigin="anonymous"></script>
 </body>

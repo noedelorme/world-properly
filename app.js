@@ -136,9 +136,10 @@ for (let i = 0; i < world.continents.length; i++) {
 let input = document.getElementById("countries-input");
 let enter = document.getElementById("countries-enter");
 let hint = document.getElementById("countries-hint");
+let abandon = document.getElementById("countries-abandon");
 let answers = document.getElementById("countries-answers");
 let counter = document.getElementById("countries-counter");
-let cnt = 0;
+let cnt = [0,0,0];
 let current_hint;
 let hint_cnt = 0;
 let perm = random_permutation(countries.length);
@@ -177,8 +178,10 @@ function play_event(value){
                 better.game.countries.element = new_answer_element(better, color=color);
                 answers.insertBefore(better.game.countries.element, answers.firstChild);
                 input.value = "";
-                if (hint_cnt <= 3) cnt++;
-                counter.innerHTML = cnt + "/197";
+                if (hint_cnt == 0) cnt[0]++;
+                else if (hint_cnt <= 3) cnt[1]++;
+                else cnt[2]++;
+                counter.innerHTML = "<span class=\"font-green\">" + cnt[0] + "</span>/<span class=\"font-orange\">" + cnt[1] + "</span>/<span class=\"font-red\">" + cnt[2] + "</span>" + " (" + (cnt[0]+cnt[1]+cnt[2]) + "/197)";
                 hint_cnt = 0;
                 current_hint = null;
             }
@@ -201,6 +204,21 @@ function hint_event(){
     input.focus();
 }
 
+function abandon_event () {
+    for (let i = 0; i < countries.length; i++) {
+        let country = countries[perm[i]];
+        if (!country.game.countries.found) {
+            country.game.countries.found = true;
+            country.game.countries.element = new_answer_element(country, color="red");
+            answers.insertBefore(country.game.countries.element, answers.firstChild);
+            hint_cnt = 0;
+            cnt[2]++;
+            counter.innerHTML = "<span class=\"font-green\">" + cnt[0] + "</span>/<span class=\"font-orange\">" + cnt[1] + "</span>/<span class=\"font-red\">" + cnt[2] + "</span>" + " (" + (cnt[0]+cnt[1]+cnt[2]) + "/197)";
+            break;
+        }
+    }
+}
+
 input.addEventListener("keydown", function(e){
     if(e.key === 'Enter'){
         play_event(this.value);
@@ -213,6 +231,10 @@ enter.addEventListener("click", function(e){
 
 hint.addEventListener("click", function(e){
     hint_event();
+});
+
+abandon.addEventListener("click", function(e){
+    abandon_event();
 });
 
 
@@ -229,7 +251,7 @@ let abandon = document.getElementById("capitals-abandon");
 let answers = document.getElementById("capitals-answers");
 let counter = document.getElementById("capitals-counter");
 let clue = document.getElementById("capitals-clue");
-let cnt = 0;
+let cnt = [0,0,0];
 let current_clue;
 let hint_cnt = 0;
 let perm = random_permutation(countries.length);
@@ -267,8 +289,10 @@ function play_event (value) {
             current_clue.game.capitals.element = new_answer_element(current_clue, color=color, capital=i);
             answers.insertBefore(current_clue.game.capitals.element, answers.firstChild);
             input.value = "";
-            if (hint_cnt <= 3) cnt++;
-            counter.innerHTML = cnt + "/197";
+            if (hint_cnt == 0) cnt[0]++;
+            else if (hint_cnt <= 3) cnt[1]++;
+            else cnt[2]++;
+            counter.innerHTML = "<span class=\"font-green\">" + cnt[0] + "</span>/<span class=\"font-orange\">" + cnt[1] + "</span>/<span class=\"font-red\">" + cnt[2] + "</span>" + " (" + (cnt[0]+cnt[1]+cnt[2]) + "/197)";
             fill_clue();
             hint_cnt = 0;
 
@@ -292,6 +316,8 @@ function abandon_event () {
     input.value = "";
     fill_clue();
     hint_cnt = 0;
+    cnt[2]++;
+    counter.innerHTML = "<span class=\"font-green\">" + cnt[0] + "</span>/<span class=\"font-orange\">" + cnt[1] + "</span>/<span class=\"font-red\">" + cnt[2] + "</span>" + " (" + (cnt[0]+cnt[1]+cnt[2]) + "/197)";
 }
 
 fill_clue();
@@ -327,12 +353,6 @@ abandon.addEventListener("click", function(e){
 
 
 
-
-
-
-
-
-
 ( () => { /*** Thrid game: Flags  ****************************************************************/
 
 let input = document.getElementById("flags-input");
@@ -342,7 +362,7 @@ let abandon = document.getElementById("flags-abandon");
 let answers = document.getElementById("flags-answers");
 let counter = document.getElementById("flags-counter");
 let clue = document.getElementById("flags-clue");
-let cnt = 0;
+let cnt = [0,0,0];
 let current_clue;
 let hint_cnt = 0;
 let perm = random_permutation(countries.length);
@@ -380,8 +400,10 @@ function play_event (value) {
             current_clue.game.flags.element = new_answer_element(current_clue, color=color);
             answers.insertBefore(current_clue.game.flags.element, answers.firstChild);
             input.value = "";
-            if (hint_cnt <= 3) cnt++;
-            counter.innerHTML = cnt + "/197";
+            if (hint_cnt == 0) cnt[0]++;
+            else if (hint_cnt <= 3) cnt[1]++;
+            else cnt[2]++;
+            counter.innerHTML = "<span class=\"font-green\">" + cnt[0] + "</span>/<span class=\"font-orange\">" + cnt[1] + "</span>/<span class=\"font-red\">" + cnt[2] + "</span>" + " (" + (cnt[0]+cnt[1]+cnt[2]) + "/197)";
             fill_clue();
             hint_cnt = 0;
 
@@ -405,6 +427,8 @@ function abandon_event () {
     input.value = "";
     fill_clue();
     hint_cnt = 0;
+    cnt[2]++;
+    counter.innerHTML = "<span class=\"font-green\">" + cnt[0] + "</span>/<span class=\"font-orange\">" + cnt[1] + "</span>/<span class=\"font-red\">" + cnt[2] + "</span>" + " (" + (cnt[0]+cnt[1]+cnt[2]) + "/197)";
 }
 
 fill_clue();
@@ -450,7 +474,7 @@ let answers = document.getElementById("population-answers");
 let counter = document.getElementById("population-counter");
 let clue = document.getElementById("population-clue");
 let value = document.getElementById("population-value");
-let cnt = 0;
+let cnt = [0,0,0];
 let current_clue;
 let hint_cnt = 0;
 let perm = random_permutation(countries.length);
@@ -496,8 +520,10 @@ function play_event (value) {
         
     current_clue.game.population.element = new_answer_element(current_clue, color=color, capital=-1, population=true);
     answers.insertBefore(current_clue.game.population.element, answers.firstChild);
-    if (color != "red") cnt++;
-    counter.innerHTML = cnt + "/197";
+    if (color == "green") cnt[0]++;
+    else if (color == "orange") cnt[1]++;
+    else cnt[2]++;
+    counter.innerHTML = "<span class=\"font-green\">" + cnt[0] + "</span>/<span class=\"font-orange\">" + cnt[1] + "</span>/<span class=\"font-red\">" + cnt[2] + "</span>" + " (" + (cnt[0]+cnt[1]+cnt[2]) + "/197)";
     fill_clue();
 }
 
